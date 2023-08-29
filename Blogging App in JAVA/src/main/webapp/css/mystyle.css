@@ -1,0 +1,25 @@
+@charset "ISO-8859-1";
+.primary-colour{
+	background-color: #187dcd !important;
+}
+.search-btn{
+	      background-color: #41df00;
+    color: #ffffff;
+}
+.navbar-light{
+	color: white!important;
+}
+.banner-background{
+	clip-path: polygon(0 0, 100% 0, 100% 29%, 100% 97%, 72% 91%, 28% 98%, 0 91%, 0% 30%);
+	}
+.login-form{
+	padding-top: 5%;
+}
+.navbar-nav .nav-link {
+    color: rgb(226, 236, 254)!important; 
+}
+.navbar-light .navbar-brand {
+    color: rgb(255 255 255 / 90%)!important;
+    font-weight: bold!important;
+    font-family: ui-monospace!important;
+}
