@@ -1,7 +1,7 @@
 
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light primary-colour">
-    <a class="navbar-brand" href="index.jsp">Blog App</a>
+    <a class="navbar-brand" href="index.jsp"><i class="fa-solid fa-blog"></i> BlogMuse</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>

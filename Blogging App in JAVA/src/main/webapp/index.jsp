@@ -17,7 +17,7 @@
 <div class="jumbotron primary-colour text-white banner-background" style="background-image: linear-gradient(45deg, black, transparent);">
 <div class="container">
 <div class="container">
-<h3 class="display-3">Welcome To TechBlog</h3>
+<h3 class="display-3">Welcome To BlogMuse</h3>
 <P>Java is a high-level, class-based, object-oriented programming language that is designed to have as few implementation dependencies as possible. It is a general-purpose programming language intended to let programmers write once, run anywhere (WORA),[17] meaning that compiled Java code can run on all platforms that support Java without the need to recompile.[18] Java applications are typically compiled to bytecode that can run on any Java virtual machine (JVM) regardless of the underlying computer architecture. </P>
 <p>Java was originally developed by James Gosling at Sun Microsystems. It was released in May 1995 as a core component of Sun Microsystems' Java platform. The original and reference implementation Java compilers, virtual machines, and class libraries were originally released by Sun under proprietary licenses.</p>
 <button class="btn btn-outline-light btn-lg">Let's Start</button>
