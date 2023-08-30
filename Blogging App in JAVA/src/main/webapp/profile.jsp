@@ -2,9 +2,6 @@
     pageEncoding="ISO-8859-1"%>
  <%@page errorPage="error.jsp" %>
  <%@ page import="com.prash.blog.entities.User" %>
-
-
-
     
     <%
    User user=(User)session.getAttribute("currentUser");
@@ -33,6 +30,8 @@
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
 	integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
 	crossorigin="anonymous"></script>
+	
+
 
 <title>Profile</title>
 </head>
@@ -83,7 +82,7 @@
     	<ul class="navbar-nav mr-right">
     	  
     	  <li class="nav-item">
-             <a class="nav-link" href=""><i class="fa-solid fa-user"></i>&nbsp;
+             <a class="nav-link" href="#!" data-bs-toggle="modal" data-bs-target="#exampleModal"><i class="fa-solid fa-user"></i>&nbsp;
              <%=user.getName().substring(0,1).toUpperCase() %><%=user.getName().substring(1)%></a>
            </li>
     	
@@ -97,8 +96,6 @@
         
         %>
         
-
-       
        <!--  <form class="form-inline my-2 my-lg-0">
             Move the search form to the right using the "ml-auto" class
             <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
@@ -107,6 +104,107 @@
     </div>
 </nav>
 
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header primary-colour text-white" style="background-image: linear-gradient(45deg, black, transparent)!important;">
+        <h1 class="modal-title fs-5" id="exampleModalLabel"><i class="fa-solid fa-blog"></i> BlogMuse</a></h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+      
+      <div class="container text-center">
+      <img src="pics/default.png" class="img-fluid w-25" alt="Responsive image"></img>
+      <h3 class="modal-title fs-5  text-center" id="exampleModalLabel"><%=user.getName().substring(0,1).toUpperCase() %><%=user.getName().substring(1)%></h3>
+      <br>
+   </div>
+   <div>   
+   
+   <div id="profile-details">
+      <table class="table">
+  <tbody>
+    <tr>
+      <th scope="row">ID</th>
+      <td><%= user.getId() %></td>
+      
+    </tr>
+    <tr>
+      <th scope="row">Email</th>
+      <td><%= user.getEmail() %></td>
+      
+    </tr>
+    <tr>
+      <th scope="row">Gender</th>
+      <td><%= user.getGender() %></td>
+     
+    </tr>
+    <tr>
+      <th scope="row">Status</th>
+      <td><%= user.getAbout() %></td>
+     
+    </tr>
+    <tr>
+      <th scope="row">Registerd on</th>
+      <td><%= user.getDateTime() %></td>
+     
+    </tr>
+  </tbody>
+</table>
+</div>
+<div id="profile-edit" style="display:none">
+<!-- <h3 class="mt-2">Please edit carefully...</h3> -->
+<form action="EditServlet" method="post">
+
+<table class="table">
+<tr>
+<td>Gender: </td>
+<td><%=user.getGender() %> ( Gender is uneditable )</td>
+</tr>
+<tr>
+<td>Email: </td>
+<td><input type="email" class="form-control" name="user_email" value="<%=user.getEmail() %>"></td>
+</tr>
+<tr>
+<td>Name: </td>
+<td><input type="text" class="form-control" name="user_name" value="<%=user.getName() %>"></td>
+</tr>
+<tr>
+<td>Password: </td>
+<td><input type="password" class="form-control" name="user_password" value="<%=user.getPassword() %>"></td>
+</tr>
+<tr>
+<td>Status: </td>
+<td>
+<textarea rows="" cols="" class="form-control" name="user_status"><%= user.getAbout()%></textarea>
+</td>
+<tr>
+<td>Profile Pic: </td>
+<td>
+<input type="file" name="user_img" class="form-control">
+</td>
+</tr>
+
+</table>
+
+<div class="container">
+<button type="submit" style="width: 100%;" class="btn btn-outline-primary">Save</button>
+</div>
+
+</form>
+</div>
+      
+      
+      </div>
+       
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" id="edit-profile-btn">Edit</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 
 
@@ -115,7 +213,26 @@
 
 
 
+	<script>
+$(document).ready(function(){
+	let editStatus=false;
+	$('#edit-profile-btn').click(function(){
+           if(editStatus==false){
+        	   $("#profile-details").hide();
+        	   $("#profile-edit").show();
+        	   editStatus=true;
+        	   $(this).text("Back");
+           }else{
+        	   $("#profile-details").show();
+        	   $("#profile-edit").hide();
+        	   editStatus=false;
+        	   $(this).text("Edit");
+           }
 
+		
+	})
+});
+</script>
 <script
 		src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
 		integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"

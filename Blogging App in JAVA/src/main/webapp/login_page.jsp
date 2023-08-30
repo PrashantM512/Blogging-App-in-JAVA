@@ -9,6 +9,7 @@
 	href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
 	integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
 	crossorigin="anonymous">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 <link rel="stylesheet" href="css/mystyle.css" type="text/css">
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"
 	integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
@@ -36,8 +37,8 @@
 				<div class="row">
 					<div class="col-md-4 offset-md-4">
 						<div class="card">
-							<div class="card-header text-center">
-								<p>Login</p>
+							<div class="card-header h4  text-white primary-colour" style="background-image: linear-gradient(45deg, black, transparent)!important;">
+								<p><i class="fa-solid fa-right-to-bracket fa-sm" style="color: #ffffff;"></i>&nbsp; Login</p>
 
 							</div>
 							<div class="card-body">
@@ -52,8 +53,6 @@
 								session.removeAttribute("msg");
 								}
 								%>
-
-
 
 								<form action="LoginServlet" method="post">
 									<div class="mb-3">

@@ -38,14 +38,14 @@ public class RegisterServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		 response.setContentType("text/html;charset=UTF-8");
+		// response.setContentType("text/html;charset=UTF-8");
 	        try (PrintWriter out = response.getWriter()) {
-	            out.println("<!DOCTYPE html>"); // Corrected closing angle bracket
-	            out.println("<html>");
-	            out.println("<head>");
-	            out.println("<title>RegisterServlet</title>");
-	            out.println("</head>");
-	            out.println("<body>");
+				/*
+				 * out.println("<!DOCTYPE html>"); // Corrected closing angle bracket
+				 * out.println("<html>"); out.println("<head>");
+				 * out.println("<title>RegisterServlet</title>"); out.println("</head>");
+				 * out.println("<body>");
+				 */
 
 	            String check = request.getParameter("check");
 	            UserDao userdao=new UserDao(ConnectionProvider.con);
@@ -83,8 +83,10 @@ public class RegisterServlet extends HttpServlet {
 	            }
 	            
 
-	            out.println("</body>");
-	            out.println("</html>");
+				/*
+				 * out.println("</body>"); out.println("</html>");
+				 */
+	            
 	        } catch (Exception e) {
 	            e.printStackTrace();
 	        }
