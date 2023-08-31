@@ -2,13 +2,13 @@
     pageEncoding="ISO-8859-1"%>
  <%@page errorPage="error.jsp" %>
  <%@ page import="com.prash.blog.entities.User" %>
-    
-    <%
+ <%
    User user=(User)session.getAttribute("currentUser");
     if(user==null){
     	response.sendRedirect("login_page.jsp");
     }
-    %>
+    %>   
+  
 <!DOCTYPE html>
 <html>
 <head>
@@ -30,8 +30,6 @@
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
 	integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
 	crossorigin="anonymous"></script>
-	
-
 
 <title>Profile</title>
 </head>
@@ -104,7 +102,8 @@
     </div>
 </nav>
 
-<!-- Modal -->
+
+
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -154,7 +153,7 @@
 </div>
 <div id="profile-edit" style="display:none">
 <!-- <h3 class="mt-2">Please edit carefully...</h3> -->
-<form action="EditServlet" method="post">
+<form action="EditServlet" method="post" enctype="multipart/form-data">
 
 <table class="table">
 <tr>
@@ -163,7 +162,7 @@
 </tr>
 <tr>
 <td>Email: </td>
-<td><input type="email" class="form-control" name="user_email" value="<%=user.getEmail() %>"></td>
+<td><%=user.getEmail() %> ( Uneditable )</td>
 </tr>
 <tr>
 <td>Name: </td>
@@ -207,13 +206,9 @@
 </div>
 
 
+<!-- Modal -->
 
-
-
-
-
-
-	<script>
+<script>
 $(document).ready(function(){
 	let editStatus=false;
 	$('#edit-profile-btn').click(function(){
@@ -228,11 +223,9 @@ $(document).ready(function(){
         	   editStatus=false;
         	   $(this).text("Edit");
            }
-
-		
 	})
 });
-</script>
+</script>	
 <script
 		src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
 		integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"

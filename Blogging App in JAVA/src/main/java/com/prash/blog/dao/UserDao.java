@@ -60,11 +60,7 @@ public class UserDao {
 					 * user.setId(id); user.setName(name); user.setEmail(email);
 					 * user.setPassword(password); user.setGender(gender); user.setAbout(about);
 					 * user.setDateTime(ts); user.setProfile(profile);
-					 */
-    			 
-    			 
-    			 
-    			 
+					 */ 
     		 }
     		 
     		 
@@ -74,5 +70,24 @@ public class UserDao {
     	 
     	 return user;
      } 
+     
+     public boolean editUser(User user) throws SQLException {
+    	 boolean flag=false;
+    	 String query="UPDATE users SET name=?,password=?,about=?,profile=? WHERE id=?";
+    	
+    	PreparedStatement stmt=con.prepareStatement(query);
+    	stmt.setString(1,user.getName());
+    	stmt.setString(2,user.getPassword());
+    	stmt.setString(3,user.getAbout());
+    	stmt.setString(4,user.getProfile());
+    	stmt.setInt(5,user.getId());
+    	
+    	stmt.executeUpdate();
+    	
+    	if(stmt.executeUpdate()>0) {
+    		flag=true;
+    	}
+    	 return flag;
+     }
      
 } 

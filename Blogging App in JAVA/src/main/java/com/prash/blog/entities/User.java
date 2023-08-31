@@ -48,6 +48,14 @@ public class User {
 		this.profile = profile;
 	}
 
+	public User(String name, String password, String about, String profile) {
+		super();
+		this.name = name;
+		this.password = password;
+		this.about = about;
+		this.profile = profile;
+	}
+
 	public User() {
 		super();
 		// TODO Auto-generated constructor stub
