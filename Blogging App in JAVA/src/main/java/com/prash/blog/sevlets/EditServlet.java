@@ -9,6 +9,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import jakarta.servlet.http.Part;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
@@ -16,33 +17,24 @@ import java.sql.SQLException;
 import com.prash.blog.dao.UserDao;
 import com.prash.blog.entities.User;
 import com.prash.blog.helper.ConnectionProvider;
+import com.prash.blog.helper.Helper;
 
-/**
- * Servlet implementation class EditServlet
- */
+
 @MultipartConfig
 public class EditServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
+
     public EditServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		PrintWriter out=response.getWriter();
        	UserDao dao=new UserDao(ConnectionProvider.getConnection());
@@ -62,25 +54,33 @@ public class EditServlet extends HttpServlet {
 		user.setProfile(profile);
 		
 		try {
-			dao.editUser(user);
-			response.sendRedirect("index.jsp");
+			if(dao.editUser(user)) {
+				String path=getServletContext().getRealPath("/")+"pics"+File.separator+user.getProfile();
+			
+				
+				if(Helper.deleteFile(path)) {
+					out.print("deleted");
+				}else {
+					out.print("not deleted");
+				}
+				
+				if(Helper.saveFile(part.getInputStream(), path)) {
+					
+					out.print("updated");
+				}else {
+					out.print("not saved");
+				}
+					
+			
+			}
+			
+			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
-		
-//		User user=new User(name,password,status,profile);
-//		
-//		try {
-//			dao.editUser(User user);
-//			out.print("done");
-//			
-//		} catch (SQLException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-		
+
 	}
 
 }

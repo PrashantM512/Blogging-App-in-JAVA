@@ -114,7 +114,7 @@
       <div class="modal-body">
       
       <div class="container text-center">
-      <img src="pics/default.png" class="img-fluid w-25" alt="Responsive image"></img>
+      <img src="pics/<%=user.getProfile() %>" class="img-fluid w-25" alt="Responsive image"></img>
       <h3 class="modal-title fs-5  text-center" id="exampleModalLabel"><%=user.getName().substring(0,1).toUpperCase() %><%=user.getName().substring(1)%></h3>
       <br>
    </div>
