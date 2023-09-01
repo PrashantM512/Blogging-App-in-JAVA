@@ -3,7 +3,10 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page import="com.prash.blog.helper.ConnectionProvider" %>
 <%@page import="com.prash.blog.entities.User" %>
+<%@page import="com.prash.blog.entities.Categories" %>
+<%@page import="com.prash.blog.dao.PostDao" %>
 <%@page import="java.sql.*" %>
+<%@page import="java.util.ArrayList" %>
 <%
    User user=(User)session.getAttribute("currentUser");
     if(user==null){
@@ -56,6 +59,9 @@
             <li><hr class="dropdown-divider"></li>
             <li><a class="dropdown-item" href="#">Something else here</a></li>
           </ul>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" data-bs-toggle="modal" data-bs-target="#post-modal" href="#">Post Blog</a>
         </li>
          <li class="nav-item">
           <a class="nav-link" href="#">Contact</a>
@@ -293,6 +299,70 @@ if (user != null) {
     </div>
   </div>
 </div>
+
+
+<!--- post modal --->
+
+<!-- Button trigger modal -->
+
+
+<!-- Modal -->
+<div class="modal fade" id="post-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Post Your Creativity</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+       
+      <form action="AddPostServlet" method="post">
+      <div class="form-group">
+     
+ <select class="btn btn-outline-primary dropdown-toggle" aria-label="Large select example">
+   <option selected disabled>Select Category</option>
+  <%
+  PostDao pd=new PostDao(ConnectionProvider.getConnection());
+  ArrayList<Categories> list=pd.getAllCategories();
+  
+  for(Categories c:list){ %>
+	    <option><a class="dropdown-item" href="#"><%= c.getName() %></a></option>
+ <%  }
+  %>
+   
+
+ </select>
+</div>
+      
+      <div class="form-group">
+      <input type="text" placeholder="Enter Post Title" class="form-control">
+      </div>
+      <div class="form-group">
+      <textarea class="form-control" rows="4" placeholder="Enter Post content"></textarea>
+      </div>
+      <div class="form-group">
+      <textarea class="form-control" rows="4" placeholder="Enter Your Code (if any)"></textarea>
+      </div>
+       <div class="form-group">
+       <label>Upload image for post :</label><br>
+       <input type="file">
+       </div>
+      
+      
+      </form>
+      
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
 
 <%
 }

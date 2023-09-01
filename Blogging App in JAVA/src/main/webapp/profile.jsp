@@ -57,6 +57,9 @@
             <li><a class="dropdown-item" href="#">Something else here</a></li>
           </ul>
         </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Post Blog</a>
+        </li>
          <li class="nav-item">
           <a class="nav-link" href="#">Contact</a>
         </li>
