@@ -9,6 +9,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import jakarta.servlet.http.Part;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 
@@ -17,6 +18,7 @@ import com.prash.blog.dao.UserDao;
 import com.prash.blog.entities.Post;
 import com.prash.blog.entities.User;
 import com.prash.blog.helper.ConnectionProvider;
+import com.prash.blog.helper.Helper;
 
 /**
  * Servlet implementation class AddPostServlet
@@ -62,7 +64,14 @@ public class AddPostServlet extends HttpServlet {
 		Post post=new Post(pTitle,pContent,pCode,pic,cid,userId);
 		
 		PostDao pd=new PostDao(ConnectionProvider.getConnection());
-		pd.savePost(post);
+		if(pd.savePost(post)) {
+			out.println("Post submitted");
+			String path=getServletContext().getRealPath("/")+"blog_pics"+File.separator+pic;
+		    Helper.saveFile(part.getInputStream(), path);
+		    out.println("image file stored");
+		}else{
+			out.println("Post not submitted");
+		}
 	}
 
 }
