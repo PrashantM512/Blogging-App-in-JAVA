@@ -316,46 +316,48 @@ if (user != null) {
       </div>
       <div class="modal-body">
        
-      <form action="AddPostServlet" method="post">
+      <form id="add-post-form" action="AddPostServlet" enctype="multipart/form-data" method="post">
       <div class="form-group">
      
- <select class="btn btn-outline-primary dropdown-toggle" aria-label="Large select example">
+ <select name="cid" class="btn btn-outline-primary form-control dropdown-toggle" aria-label="Large select example">
    <option selected disabled>Select Category</option>
   <%
   PostDao pd=new PostDao(ConnectionProvider.getConnection());
   ArrayList<Categories> list=pd.getAllCategories();
   
   for(Categories c:list){ %>
-	    <option><a class="dropdown-item" href="#"><%= c.getName() %></a></option>
- <%  }
-  %>
-   
+  <option value="<%=c.getCid()%>"> <%= c.getName() %></option>
+<%  }
+%>
 
  </select>
 </div>
       
       <div class="form-group">
-      <input type="text" placeholder="Enter Post Title" class="form-control">
+      <input type="text" name="pTitle" placeholder="Enter Post Title" class="form-control">
       </div>
       <div class="form-group">
-      <textarea class="form-control" rows="4" placeholder="Enter Post content"></textarea>
+      <textarea class="form-control" name="pContent" rows="4" placeholder="Enter Post content"></textarea>
       </div>
       <div class="form-group">
-      <textarea class="form-control" rows="4" placeholder="Enter Your Code (if any)"></textarea>
+      <textarea class="form-control" name="pCode" rows="4" placeholder="Enter Your Code (if any)"></textarea>
       </div>
        <div class="form-group">
        <label>Upload image for post :</label><br>
-       <input type="file">
+       <input name="pic" type="file">
        </div>
       
+      <div >
+<button type="submit" style="width: 100%;" class="btn btn-outline-primary">Post</button>
+</div>
       
       </form>
       
       </div>
-      <div class="modal-footer">
+      <!-- <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
         <button type="button" class="btn btn-primary">Save changes</button>
-      </div>
+      </div> -->
     </div>
   </div>
 </div>

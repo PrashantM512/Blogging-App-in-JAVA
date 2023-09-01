@@ -10,12 +10,13 @@ public class Post {
      private String pPic;
      private Timestamp pDate;
      private int catId;
+     private int userId;
      
 	public Post() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public Post(int pid, String pTitle, String pContent, String pCode, String pPic, Timestamp pDate, int catId) {
+	public Post(int pid, String pTitle, String pContent, String pCode, String pPic, Timestamp pDate, int catId, int userId) {
 		super();
 		this.pid = pid;
 		this.pTitle = pTitle;
@@ -24,8 +25,19 @@ public class Post {
 		this.pPic = pPic;
 		this.pDate = pDate;
 		this.catId = catId;
+		this.userId=userId;
 	}
-	public Post(String pTitle, String pContent, String pCode, String pPic, Timestamp pDate, int catId) {
+	public Post(String pTitle, String pContent, String pCode, String pPic, int catId, int userId) {
+		super();
+	
+		this.pTitle = pTitle;
+		this.pContent = pContent;
+		this.pCode = pCode;
+		this.pPic = pPic;
+		this.catId = catId;
+		this.userId=userId;
+	}
+	public Post(String pTitle, String pContent, String pCode, String pPic, Timestamp pDate, int catId ,int userId) {
 		super();
 		this.pTitle = pTitle;
 		this.pContent = pContent;
@@ -33,6 +45,13 @@ public class Post {
 		this.pPic = pPic;
 		this.pDate = pDate;
 		this.catId = catId;
+		this.userId=userId;
+	}
+	public int getUserId() {
+		return userId;
+	}
+	public void setUserId(int userId) {
+		this.userId = userId;
 	}
 	public int getPid() {
 		return pid;
