@@ -3,7 +3,10 @@ package com.prash.blog.dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.List;
 
 import com.prash.blog.entities.Categories;
 import com.prash.blog.entities.Post;
@@ -57,5 +60,63 @@ public PostDao(Connection con) {
 		   e.printStackTrace();
 	   }
        return flag;
+   }
+   public List<Post> getAllPost() throws SQLException{
+	   List<Post> list=new ArrayList<>();
+	   
+	   try {
+		   
+		   String query="SELECT * FROM posts";
+		   PreparedStatement stmt=con.prepareStatement(query);
+		   ResultSet rs=stmt.executeQuery();
+		   while(rs.next()) {
+			   int pid=rs.getInt("pid");
+			   String pTitle=rs.getString("pTitle");
+			   String pContent=rs.getString("pContent");
+			   String pCode=rs.getString("pCode");
+			   String pPic=rs.getString("pPic");
+			   Timestamp pDate=rs.getTimestamp("pDate");
+			   int catId=rs.getInt("catId");
+			   int userId=rs.getInt("userId");
+			   
+			   Post post=new Post(pid,pTitle,pContent,pCode,pPic,pDate,catId,userId);
+			   list.add(post);
+		    
+		   }
+	   }catch(Exception e) {
+		   e.printStackTrace();
+	   }
+	   
+	   
+	   return list;
+   }
+   public List<Post> getPostById(int catId){
+	   List<Post> list=new ArrayList<>();
+	   
+        try {
+		   
+		   String query="SELECT * FROM posts WHERE catId=?";
+		   PreparedStatement stmt=con.prepareStatement(query);
+		   stmt.setInt(1, catId);
+		   ResultSet rs=stmt.executeQuery();
+		   while(rs.next()) {
+			   int pid=rs.getInt("pid");
+			   String pTitle=rs.getString("pTitle");
+			   String pContent=rs.getString("pContent");
+			   String pCode=rs.getString("pCode");
+			   String pPic=rs.getString("pPic");
+			   Timestamp pDate=rs.getTimestamp("pDate");
+			   int ctId=rs.getInt("catId");
+			   int userId=rs.getInt("userId");
+			   
+			   Post post=new Post(pid,pTitle,pContent,pCode,pPic,pDate,ctId,userId);
+			   list.add(post);
+		    
+		   }
+	   }catch(Exception e) {
+		   e.printStackTrace();
+	   }
+	   
+	   return list;
    }
 }

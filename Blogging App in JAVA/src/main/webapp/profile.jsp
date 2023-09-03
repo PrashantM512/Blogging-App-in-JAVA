@@ -2,12 +2,16 @@
     pageEncoding="ISO-8859-1"%>
  <%@page errorPage="error.jsp" %>
  <%@ page import="com.prash.blog.entities.User" %>
+ <%@ page import="com.prash.blog.dao.PostDao" %>
+ <%@ page import="com.prash.blog.helper.ConnectionProvider" %>
+ <%@page import="java.util.ArrayList" %>
+ <%@page import="com.prash.blog.entities.Categories" %>
  <%
    User user=(User)session.getAttribute("currentUser");
     if(user==null){
     	response.sendRedirect("login_page.jsp");
     }
-    %>   
+ %>   
   
 <!DOCTYPE html>
 <html>
@@ -209,6 +213,44 @@
 </div>
 
 
+<div class="container">
+<div class="row mt-4">
+<div class="col-md-4">
+
+<div class="list-group">
+  <a href="#" onclick="getPosts(0)" class="list-group-item list-group-item-action active" aria-current="true">
+    All Posts
+  </a>
+   <%
+    PostDao pd=new PostDao(ConnectionProvider.getConnection());
+     ArrayList<Categories> list=pd.getAllCategories();
+     
+     for(Categories c:list){ %>
+    	 <a href="#" onclick="getPosts(<%= c.getCid() %>)" class="list-group-item list-group-item-action"><%= c.getName() %></a>
+    <%  }
+    %>
+ 
+ </div>
+
+</div>
+
+<div class="col-md-8" >
+<div class="container text-center" id="loader">
+<i class="fa fa-refresh fa-4x fa-spin"></i>
+<h3 class="mt-2">Loading...</h3>
+</div>
+<div class="container-fluid" id="post-container">
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+
+
+
 <!-- Modal -->
 
 <script>
@@ -229,6 +271,26 @@ $(document).ready(function(){
 	})
 });
 </script>	
+<script>
+function getPosts(catId){
+	
+	$.ajax({
+		url: "load_posts.jsp", 
+		data:{cid:catId},
+		success: function(data, textStatus, jqXHR){
+	    	console.log(data);
+	    	$("#loader").hide();
+	    	$('#post-container').html(data);
+	    }
+	});
+}
+
+$(document).ready(function(){
+    
+	getPosts(0);
+});
+
+</script>
 <script
 		src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
 		integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
