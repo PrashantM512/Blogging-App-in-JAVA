@@ -119,4 +119,34 @@ public PostDao(Connection con) {
 	   
 	   return list;
    }
+   public Post getPostBypid(int postId) {
+	   
+	   Post post=null;
+	   String query="select * from posts where pid=?";
+	   try {
+		   PreparedStatement stmt=this.con.prepareStatement(query);
+		   stmt.setInt(1, postId);
+		   ResultSet rs=stmt.executeQuery();
+		   while(rs.next()) {
+			  
+			   int pid=rs.getInt("pid");
+			   String pTitle=rs.getString("pTitle");
+			   String pContent=rs.getString("pContent");
+			   String pCode=rs.getString("pCode");
+			   String pPic=rs.getString("pPic");
+			   Timestamp pDate=rs.getTimestamp("pDate");
+			   int catId=rs.getInt("catId");
+			   int userId=rs.getInt("userId");
+			   
+			   post=new Post(pid,pTitle,pContent,pCode,pPic,pDate,catId,userId);
+			 
+			 
+		   }
+		   
+		   
+	   }catch(Exception e) {
+		   e.printStackTrace();
+	   }
+	   return post;
+   }
 }

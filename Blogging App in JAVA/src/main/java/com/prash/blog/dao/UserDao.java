@@ -89,5 +89,21 @@ public class UserDao {
     	}
     	 return flag;
      }
+     public String getUsernameById(int uid) {
+    	 String username=null;
+    	 String query="select * from users where id=?";
+    	 try {
+    		 PreparedStatement stmt=con.prepareStatement(query);
+    		 stmt.setInt(1, uid);
+    		
+    		 ResultSet rs= stmt.executeQuery();
+    		while(rs.next()) {
+    			 username=rs.getString("name");
+    		}
+    	 }catch(Exception e) {
+    		 e.printStackTrace();
+    	 }
+    	 return username;
+     }
      
 } 

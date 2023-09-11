@@ -1,18 +1,24 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
- <%@page errorPage="error.jsp" %>
- <%@ page import="com.prash.blog.entities.User" %>
+     <%@ page import="com.prash.blog.entities.*" %>
  <%@ page import="com.prash.blog.dao.PostDao" %>
+  <%@ page import="com.prash.blog.dao.LikeDao" %>
+  <%@ page import="com.prash.blog.dao.UserDao" %>
  <%@ page import="com.prash.blog.helper.ConnectionProvider" %>
  <%@page import="java.util.ArrayList" %>
  <%@page import="com.prash.blog.entities.Categories" %>
+ <%
+ int postId=Integer.parseInt(request.getParameter("post_id")); 
+ PostDao pst=new PostDao(ConnectionProvider.getConnection());
+ Post p=pst.getPostBypid(postId);
+ %>   
  <%
    User user=(User)session.getAttribute("currentUser");
     if(user==null){
     	response.sendRedirect("login_page.jsp");
     }
- %>   
-  
+ %>  
+ 
 <!DOCTYPE html>
 <html>
 <head>
@@ -35,8 +41,9 @@
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
 	integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
 	crossorigin="anonymous"></script>
+	
 
-<title>Profile</title>
+<title><%= p.getpTitle() %></title>
 </head>
 <body>
 
@@ -66,7 +73,7 @@
           <a class="nav-link" href="#">Post Blog</a>
         </li>
          <li class="nav-item">
-          <a class="nav-link" href="#">Contact</a>
+          <a class="nav-link" href="profile.jsp">Profile</a>
         </li>
         
         
@@ -98,17 +105,56 @@
            </li>
            </ul>
     	  
-    <%   }
+    <% }
         
-        %>
-        
-       <!--  <form class="form-inline my-2 my-lg-0">
-            Move the search form to the right using the "ml-auto" class
-            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-            <button class="btn btn-outline-success my-2 my-sm-0 search-btn" type="submit">Search</button>
-        </form> -->
+    %>
     </div>
 </nav>
+
+<div class="container">
+<div class="row my-4">
+<div class="col-md-8 offset-md-2">
+<div class="card">
+<div class="card-header primary-colour text-white">
+<h2><%=p.getpTitle() %></h2>
+</div>
+<div class="card-body">
+<img class="card-img-top my-2" src="blog_pics/default.jpg" alt="Card image cap" >
+
+<div class="row my-2">
+<div class="col-md-8">
+<%
+UserDao ud=new UserDao(ConnectionProvider.getConnection());
+String username=ud.getUsernameById(p.getUserId());
+
+%>
+<p><b><%= username %></b> has Posted :</p>
+</div>
+<div class="col-md-4">
+<b><%=p.getpDate().toLocaleString() %></b>
+</div>
+
+</div>
+
+<h5><%= p.getpContent() %></h5>
+<br><br>
+<%=p.getpCode() %>
+</div>
+<%
+LikeDao ld=new LikeDao(ConnectionProvider.getConnection());
+int likesCount=ld.likesCount(p.getPid());
+%>
+<div class="card-footer bg-dark">
+	<a href="#!" onclick="doLike(<%=p.getPid() %>,<%=user.getId() %>)" class="btn btn-outline-light btn-sm"><i class="fa fa-thumbs-up"></i><span class="like-counter-<%=p.getPid() %>"><%=likesCount %></span></a>
+	<a href="" class="btn btn-outline-light btn-sm"><i class="fa fa-comment"></i><span>10</span></a>
+	</div>
+</div>
+
+</div>
+</div>
+</div>
+
+
 
 
 
@@ -214,45 +260,6 @@
 </div>
 
 
-<div class="container">
-<div class="row mt-4">
-<div class="col-md-4">
-
-<div class="list-group">
-  <a href="#" onclick="getPosts(0)" class="list-group-item list-group-item-action active" aria-current="true">
-    All Posts
-  </a>
-   <%
-    PostDao pd=new PostDao(ConnectionProvider.getConnection());
-     ArrayList<Categories> list=pd.getAllCategories();
-     
-     for(Categories c:list){ %>
-    	 <a href="#" onclick="getPosts(<%= c.getCid() %>)" class="list-group-item list-group-item-action"><%= c.getName() %></a>
-    <%  }
-    %>
- 
- </div>
-
-</div>
-
-<div class="col-md-8" >
-<div class="container text-center" id="loader">
-<i class="fa fa-refresh fa-4x fa-spin"></i>
-<h3 class="mt-2">Loading...</h3>
-</div>
-<div class="container-fluid" id="post-container">
-
-</div>
-
-</div>
-
-</div>
-</div>
-
-
-
-
-<!-- Modal -->
 
 <script>
 $(document).ready(function(){
@@ -301,6 +308,7 @@ $(document).ready(function(){
 		integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
 		crossorigin="anonymous"></script>
 	<script src="js/myjs.js" type="text/javascript"></script>
+
 
 </body>
 </html>
