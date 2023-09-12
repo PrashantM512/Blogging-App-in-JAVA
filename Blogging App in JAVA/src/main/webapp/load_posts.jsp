@@ -35,9 +35,13 @@ for(Post p:list){ %>
 	<%
 	 User user=(User)session.getAttribute("currentUser");
 	 LikeDao ld=new LikeDao(ConnectionProvider.getConnection());
+	 int likesCount=ld.likesCount(p.getPid());
 	 
 	%>
-	<a href="#!" onclick="doLike(<%=p.getPid() %>,<%=user.getId() %>)" class="btn btn-outline-primary btn-sm"><i class="fa fa-thumbs-up"></i><span class="like-counter-<%=p.getPid() %>"><%= ld.likesCount(p.getPid()) %></span></a>
+	<a href="#!" onclick="doLike(<%=p.getPid() %>,<%=user.getId() %>)" class="btn likebutton btn-outline-primary btn-sm"><i class="fa fa-thumbs-up"></i><span class="like-counter-<%=p.getPid() %>"><%=likesCount %></span></a>
+	
+<a href="#!" onclick="UnLike(<%=p.getPid() %>,<%=user.getId() %>)" class="btn unlikebutton btn-outline-primary btn-sm"><i class="fa fa-thumbs-up"></i><span class="like-counter-<%=p.getPid() %>"><%=likesCount %></span></a>
+	
 	<a href="show_blog_page.jsp?post_id=<%= p.getPid() %>" class="btn btn-outline-primary btn-sm">Read More</a>
 	
 	<a href="" class="btn btn-outline-primary btn-sm"><i class="fa fa-comment"></i><span>10</span></a>
@@ -51,3 +55,8 @@ for(Post p:list){ %>
 }
 %>
 </div>
+<script>
+$(document).ready(function(){
+	 $(".unlikebutton").hide();
+}
+</script>

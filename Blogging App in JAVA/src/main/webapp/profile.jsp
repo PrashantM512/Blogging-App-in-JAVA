@@ -37,6 +37,14 @@
 	crossorigin="anonymous"></script>
 
 <title>Profile</title>
+ <style>
+        .likebutton,
+        .unlikebutton {
+            display: inline-block;
+            cursor: pointer;
+            
+        }
+    </style>
 </head>
 <body>
 
@@ -66,7 +74,7 @@
           <a class="nav-link" href="#">Post Blog</a>
         </li>
          <li class="nav-item">
-          <a class="nav-link" href="#">Contact</a>
+          <a class="nav-link" href="profile.jsp">Profile</a>
         </li>
         
         
@@ -101,12 +109,7 @@
     <%   }
         
         %>
-        
-       <!--  <form class="form-inline my-2 my-lg-0">
-            Move the search form to the right using the "ml-auto" class
-            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-            <button class="btn btn-outline-success my-2 my-sm-0 search-btn" type="submit">Search</button>
-        </form> -->
+      
     </div>
 </nav>
 
@@ -200,8 +203,6 @@
 
 </form>
 </div>
-      
-      
       </div>
        
       </div>
@@ -250,12 +251,11 @@
 </div>
 
 
-
-
 <!-- Modal -->
 
 <script>
 $(document).ready(function(){
+	 $(".unlikebutton").hide();
 	let editStatus=false;
 	$('#edit-profile-btn').click(function(){
            if(editStatus==false){

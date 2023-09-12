@@ -64,16 +64,16 @@ public class LikeDao {
      }
      public boolean deleteLike(int pid,int uid) {
     	 boolean flag=false;
-    	 String query="delete from likes where pid=?,uid=?";
+    	 String query="delete from likes where pid=? and uid=?";
     	 try {
     		 PreparedStatement stmt=this.con.prepareStatement(query);
     		 stmt.setInt(1, pid);
     		 stmt.setInt(2, uid);
-    		 stmt.executeQuery();
+    		 stmt.executeUpdate();
     		 flag=true;
     	 }catch(Exception e) {
     		 e.printStackTrace();
     	 }
-    	 return true;
+    	 return flag;
      }
 }

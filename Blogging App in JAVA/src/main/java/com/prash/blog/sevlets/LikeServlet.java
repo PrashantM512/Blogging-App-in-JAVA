@@ -43,6 +43,10 @@ public class LikeServlet extends HttpServlet {
         	boolean f=ld.likePost(pid, uid);
         	 out.println(f);
         }
+        if(operation.equals("unlike")) {
+        	boolean f=ld.deleteLike(pid, uid);
+        	 out.println(f);
+        }
         
        
        

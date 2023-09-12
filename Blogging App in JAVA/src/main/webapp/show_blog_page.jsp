@@ -41,11 +41,22 @@
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
 	integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
 	crossorigin="anonymous"></script>
+<script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v17.0" nonce="FWMdIiie"></script>
 	
 
 <title><%= p.getpTitle() %></title>
+  <style>
+        .likebutton,
+        .unlikebutton {
+            display: inline-block;
+            cursor: pointer;
+            
+        }
+    </style>
 </head>
 <body>
+<div id="fb-root"></div>
+<script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v17.0" nonce="FWMdIiie"></script>
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light primary-colour">
     <a class="navbar-brand" href="index.jsp"><i class="fa-solid fa-blog"></i> BlogMuse</a>
@@ -145,8 +156,18 @@ LikeDao ld=new LikeDao(ConnectionProvider.getConnection());
 int likesCount=ld.likesCount(p.getPid());
 %>
 <div class="card-footer bg-dark">
-	<a href="#!" onclick="doLike(<%=p.getPid() %>,<%=user.getId() %>)" class="btn btn-outline-light btn-sm"><i class="fa fa-thumbs-up"></i><span class="like-counter-<%=p.getPid() %>"><%=likesCount %></span></a>
+   
+    
+
+	<a href="#!" onclick="doLike(<%=p.getPid() %>,<%=user.getId() %>)" class="btn likebutton btn-outline-light btn-sm"><i class="fa fa-thumbs-up"></i><span class="like-counter-<%=p.getPid() %>"><%=likesCount %></span></a>
+	
+	<a href="#!" onclick="UnLike(<%=p.getPid() %>,<%=user.getId() %>)" class="btn unlikebutton btn-outline-light btn-sm"><i class="fa fa-thumbs-up"></i><span class="like-counter-<%=p.getPid() %>"><%=likesCount %></span></a>
+	
+	
 	<a href="" class="btn btn-outline-light btn-sm"><i class="fa fa-comment"></i><span>10</span></a>
+	</div>
+	<div class="card-footer">
+	<div class="fb-comments" data-href="http://localhost:8080/Blogging_App_in_JAVA/show_blog_page.jsp?post_id=<%=p.getPid() %>" data-width="" data-numposts="5"></div>
 	</div>
 </div>
 
@@ -263,6 +284,7 @@ int likesCount=ld.likesCount(p.getPid());
 
 <script>
 $(document).ready(function(){
+	 $(".unlikebutton").hide();
 	let editStatus=false;
 	$('#edit-profile-btn').click(function(){
            if(editStatus==false){
@@ -279,6 +301,10 @@ $(document).ready(function(){
 	})
 });
 </script>	
+
+
+
+
 <script>
 function getPosts(catId){
 	
