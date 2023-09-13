@@ -56,8 +56,7 @@
 </head>
 <body>
 <div id="fb-root"></div>
-<script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v17.0" nonce="FWMdIiie"></script>
-
+<script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v17.0" nonce="QQMAc4vc"></script>
 <nav class="navbar navbar-expand-lg navbar-light bg-light primary-colour">
     <a class="navbar-brand" href="index.jsp"><i class="fa-solid fa-blog"></i> BlogMuse</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -167,7 +166,7 @@ int likesCount=ld.likesCount(p.getPid());
 	<a href="" class="btn btn-outline-light btn-sm"><i class="fa fa-comment"></i><span>10</span></a>
 	</div>
 	<div class="card-footer">
-	<div class="fb-comments" data-href="http://localhost:8080/Blogging_App_in_JAVA/show_blog_page.jsp?post_id=<%=p.getPid() %>" data-width="" data-numposts="5"></div>
+	<div class="fb-comments" data-href="http://localhost:8080/Blogging_App_in_JAVA/show_blog_page.jsp?post_id=2" data-width="500" data-numposts="5"></div>
 	</div>
 </div>
 
